@@ -11,36 +11,30 @@ segment data use32 class=data
 
 segment code use32 class=code
     start:
-        mov eax, 0            ; Clear eax for calculations
-        mov ebx, 0            ; Clear ebx for calculations
+        mov eax, 0           
+        mov ebx, 0        
 
-        ; Step 1: Extract bits 6-9 from `A` and move them to bits 0-3 of `C`
-        mov ax, [a]           ; Load `a` into ax
-        and ax, 0x03C0        ; Mask to keep only bits 6-9
-        shr ax, 6             ; Shift right to position at bits 0-3
-        mov ebx, eax          ; Move result to ebx (start forming `C`)
+      
+        mov ax, [a]        
+        and ax, 0x03C0       
+        shr ax, 6          
+        mov ebx, eax        
+ 
+        or ebx, 0x30         
 
-        ; Step 2: Set bits 4-5 of `C` to 1
-        or ebx, 0x30          ; Set bits 4 and 5 of `ebx` to 1 (0b00110000)
+        mov al, [b]          
+        and al, 0x06          
+        shl al, 5           
+        or bl, al            
 
-        ; Step 3: Extract bits 1-2 from `B` and move them to bits 6-7 of `C`
-        mov al, [b]           ; Load `b` into al
-        and al, 0x06          ; Mask to keep only bits 1-2
-        shl al, 5             ; Shift left to align with bits 6-7
-        or bl, al             ; Combine with `ebx`
+        mov eax, [a]        
+        shl eax, 8       
+        or ebx, eax      
 
-        ; Step 4: Copy all bits of `A` to bits 8-23 of `C`
-        mov eax, [a]          ; Load `a` into eax
-        shl eax, 8            ; Shift left to align with bits 8-23
-        or ebx, eax           ; Combine with `ebx`
-
-        ; Step 5: Copy all bits of `B` to bits 24-31 of `C`
-        mov eax, [b]          ; Load `b` into eax
-        shl eax, 24           ; Shift left to align with bits 24-31
-        or ebx, eax           ; Combine with `ebx`
-
-        ; Store the result in `c`
-        ;mov [c], ebx          ; Move final result to `c`
+        mov eax, [b]      
+        shl eax, 24          
+        or ebx, eax          
+        ;mov [c], ebx  
 
         ; Exit program with code 0
         push dword 0          ; Push 0 as the exit code
