@@ -22,8 +22,9 @@ segment data use32 class=data
 segment code use32 class=code
     start:
         ; ...
-        mov ecx, l ;contor pt loop
+        mov ecx, l - 1 ;contor pt loop
         mov esi, 0
+        mov edi, 0
         jecxz Sfarsit ;aici se verifica doar daca continutul din ecx e 0
         Repeta:
             mov al, [s+esi]
@@ -31,7 +32,8 @@ segment code use32 class=code
             mov bl, [s+esi]
             sub bl, al
             
-            mov[d+esi+1], bl ;punem la pozitia corespunzatoare din d rezultatul
+            mov[d+edi], bl ;punem la pozitia corespunzatoare din d rezultatul
+            inc edi
             
         loop Repeta
         Sfarsit:
