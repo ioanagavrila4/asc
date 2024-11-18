@@ -20,8 +20,8 @@ segment data use32 class=data
 segment code use32 class=code
 start:
     mov esi, s               ; Load address of 's' into esi
-    xor ebx, ebx             ; Clear ebx, used to build the result
-    xor edx, edx             ; Counter for added bytes (max 4)
+    xor ebx, ebx             ; Clear ebx
+    xor edx, edx             ; Counter for added bytes (max 4?)
     mov ecx, len             ; Set loop counter (number of doublewords)
 
 parcurgere:
