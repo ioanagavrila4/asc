@@ -14,7 +14,7 @@ start:
     mov ecx, len         ; Set the loop counter to the number of elements
 
 repeta:
-    lodsd                ; Load the next doubleword from 'sir' into eax
+    lodsd                
     push eax             ; Save eax (the current doubleword)
 
     xor ebx, ebx         ; ebx - counter of 1 s
